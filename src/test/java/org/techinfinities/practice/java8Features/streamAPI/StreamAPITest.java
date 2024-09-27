@@ -112,6 +112,35 @@ public class StreamAPITest {
         resultOrder.forEach(order -> log.info(order.toString()));
     }
 
+    @Test
+    @DisplayName("Obtain a list of product with category = “Toys” and then apply 10% discount")
+    public void exercise3() {
+        long startTime = System.currentTimeMillis();
+        List<Product> resultProduct = new ArrayList<>();
+        for(Product product : productRepo.findAll()) {
+            if(product.getCategory().equalsIgnoreCase("Toys")) {
+                product.setPrice(product.getPrice() * 0.9);
+                resultProduct.add(product);
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        log.info("Size of the result : " + resultProduct.size());
+        log.info(String.format("exercise 3 Traditional way - execution time: %1$d ms", (endTime - startTime)));
+        resultProduct.forEach(product -> log.info(product.toString()));
+
+        startTime = System.currentTimeMillis();
+
+        List<Product> productList = productRepo.findAll().stream()
+                .filter(product -> product.getCategory().equalsIgnoreCase("Toys"))
+                .map( product -> product.withPrice(product.getPrice()*0.9))
+                .toList();
+
+        endTime = System.currentTimeMillis();
+        log.info("Size of the result : " + productList.size());
+        log.info(String.format("exercise 3 Stream API way - execution time: %1$d ms", (endTime - startTime)));
+        productList.forEach(product -> log.info(product.toString()));
+    }
+
 
 
 }

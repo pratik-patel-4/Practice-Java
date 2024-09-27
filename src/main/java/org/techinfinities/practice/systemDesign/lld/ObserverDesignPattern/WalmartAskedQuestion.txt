@@ -1,0 +1,9 @@
+In e-commerce site like Amazon, when certain product goes out of stock,
+at that time we have a option like "Notify Me".
+
+So once the product comes to stock, at that time we send emails to all the accounts which
+is opted for this "Notify Me" service.
+
+So we have to implement it.
+
+So that we can implement using Observer Design Pattern:
